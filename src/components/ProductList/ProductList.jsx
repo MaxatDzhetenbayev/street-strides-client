@@ -1,69 +1,62 @@
-import { Grid } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Grid,
+  Skeleton,
+} from "@mui/material";
 import React from "react";
 import { ProductItem } from "./ProductItem/ProductItem";
 import { useGetProductListQuery } from "../../store/api/ProductApi";
-export const ProductList = () => {
-  const { data: products, isLoading, error } = useGetProductListQuery();
+export const ProductList = ({ brand, sort }) => {
+  const { data: products, isLoading } = useGetProductListQuery({ brand, sort });
 
-  //   const data = [
-  //     {
-  //       id: 1,
-  //       name: "SB x Supreme Dunk Low 'Rammellzee'",
-  //       brand: "Nike",
+  const loading = true;
 
-  //       description: ` The Nike SB x Supreme Dunk Low ‘Rammellzee’ pays tribute to the colourful graphic art of the late NYC legend, Rammellzee. The artist's graphics cover the canvas panels on the toe box, side walls, and heel, while the overlays and Swooshes come in solid black suede. Gold Supreme deubrés appear on the laces, accompanied by a 'World Famous' hangtag. The classic SB aesthetic is tied together with a gum rubber outsole beneath a black Zoom Air midsole. Buy & sell the Nike SB x Supreme Dunk Low ‘Rammellzee’ on KLEKT`,
-  //       style_code: "FD8778-001",
-  //       condition: "Brand New",
-  //       price: 374,
-  //       release_date: "2023-08-31",
-  //       images: ["NikeSB-1.webp", "NikeSB-2.webp", "NikeSB-1.webp"],
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "SB x Supreme Dunk Low 'Rammellzee'",
-  //       brand: "Nike",
-
-  //       description: ` The Nike SB x Supreme Dunk Low ‘Rammellzee’ pays tribute to the colourful graphic art of the late NYC legend, Rammellzee. The artist's graphics cover the canvas panels on the toe box, side walls, and heel, while the overlays and Swooshes come in solid black suede. Gold Supreme deubrés appear on the laces, accompanied by a 'World Famous' hangtag. The classic SB aesthetic is tied together with a gum rubber outsole beneath a black Zoom Air midsole. Buy & sell the Nike SB x Supreme Dunk Low ‘Rammellzee’ on KLEKT`,
-  //       style_code: "FD8778-001",
-  //       condition: "Brand New",
-  //       price: 374,
-  //       release_date: "2023-08-31",
-  //       images: ["NikeSB-1.webp", "NikeSB-2.webp", "NikeSB-1.webp"],
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "SB x Supreme Dunk Low 'Rammellzee'",
-  //       brand: "Nike",
-
-  //       description: ` The Nike SB x Supreme Dunk Low ‘Rammellzee’ pays tribute to the colourful graphic art of the late NYC legend, Rammellzee. The artist's graphics cover the canvas panels on the toe box, side walls, and heel, while the overlays and Swooshes come in solid black suede. Gold Supreme deubrés appear on the laces, accompanied by a 'World Famous' hangtag. The classic SB aesthetic is tied together with a gum rubber outsole beneath a black Zoom Air midsole. Buy & sell the Nike SB x Supreme Dunk Low ‘Rammellzee’ on KLEKT`,
-  //       style_code: "FD8778-001",
-  //       condition: "Brand New",
-  //       price: 374,
-  //       release_date: "2023-08-31",
-  //       images: ["NikeSB-1.webp", "NikeSB-2.webp", "NikeSB-1.webp"],
-  //     },
-  //     {
-  //       id: 4,
-  //       name: "SB x Supreme Dunk Low 'Rammellzee'",
-  //       brand: "Nike",
-
-  //       description: ` The Nike SB x Supreme Dunk Low ‘Rammellzee’ pays tribute to the colourful graphic art of the late NYC legend, Rammellzee. The artist's graphics cover the canvas panels on the toe box, side walls, and heel, while the overlays and Swooshes come in solid black suede. Gold Supreme deubrés appear on the laces, accompanied by a 'World Famous' hangtag. The classic SB aesthetic is tied together with a gum rubber outsole beneath a black Zoom Air midsole. Buy & sell the Nike SB x Supreme Dunk Low ‘Rammellzee’ on KLEKT`,
-  //       style_code: "FD8778-001",
-  //       condition: "Brand New",
-  //       price: 374,
-  //       release_date: "2023-08-31",
-  //       images: ["NikeSB-1.webp", "NikeSB-2.webp", "NikeSB-1.webp"],
-  //     },
-  //   ];
-
-	if(isLoading){
-		return (
-			<div>
-				Loading...
-			</div>
-		)
-	}
-
+  if (isLoading) {
+    return (
+      <Grid mt={5} container rowSpacing={2} columnSpacing={3}>
+        {[0, 0, 0, 0, 0, 0, 0, 0].map((item, index) => (
+          <Grid item key={index} sm={12} md={6} lg={4} xl={3}>
+            <Card>
+              <CardHeader
+                title={
+                  <Skeleton
+                    animation="wave"
+                    height={10}
+                    width="80%"
+                    style={{ marginBottom: 6 }}
+                  />
+                }
+              />
+              <Skeleton
+                sx={{ height: 190 }}
+                animation="wave"
+                variant="rectangular"
+              />
+              <CardContent>
+                <Skeleton
+                  animation="wave"
+                  height={10}
+                  style={{ marginBottom: 6 }}
+                />
+                <Skeleton animation="wave" height={10} width="80%" />
+              </CardContent>
+              <Skeleton
+                sx={{ height: 10, ml: 2 }}
+                width="20%"
+                animation="wave"
+                variant="rectangular"
+              />
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    );
+  }
 
   return (
     <Grid mt={5} container rowSpacing={2} columnSpacing={3}>

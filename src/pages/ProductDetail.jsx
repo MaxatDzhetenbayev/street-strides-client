@@ -1,3 +1,12 @@
+import { useParams } from "react-router-dom";
+import { useGetProductByIdQuery } from "../store/api/ProductApi";
+
+import { Navigation } from "swiper/modules";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAddProductForCart } from "../store/slices/productSlice";
+
+import { format } from "date-fns";
+
 import {
   Box,
   Button,
@@ -7,24 +16,31 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { useGetProductByIdQuery } from "../store/api/ProductApi";
-import { format, parseISO } from "date-fns";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
-
-import { Navigation } from "swiper/modules";
+import { toast } from "react-toastify";
 
 export const ProductDetail = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
-  const { data, error, isLoading } = useGetProductByIdQuery(id);
+  const { data, isLoading } = useGetProductByIdQuery(id);
 
   const matches_md = useMediaQuery("(min-width: 980px)");
   const matches_sm = useMediaQuery("(min-width: 540px)");
+
+  const handleAddToCart = ({userId, productId}) => {
+    console.log(userId);
+    if (!userId) {
+      toast.error("To add a product to your cart you need to log in");
+      return;
+    }
+    dispatch(fetchAddProductForCart({userId, productId}));
+  };
 
   if (isLoading) {
     return <div>loading...</div>;
@@ -82,11 +98,14 @@ export const ProductDetail = () => {
             <Box
               sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}
             >
-              <Button variant="contained" sx={{ padding: 2 }}>
+              <Button
+                onClick={() =>
+                  handleAddToCart({ userId: user?.id, productId: data.id })
+                }
+                variant="contained"
+                sx={{ padding: 2 }}
+              >
                 Add to bug
-              </Button>
-              <Button variant="outlined" sx={{ padding: 2 }}>
-                Add to wishlist
               </Button>
             </Box>
           </Paper>

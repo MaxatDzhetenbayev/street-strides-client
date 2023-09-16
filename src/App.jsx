@@ -6,6 +6,8 @@ import { MainPage } from "./pages/MainPage";
 import { AuthPage } from "./pages/AuthPage/AuthPage";
 import { ProductDetail } from "./pages/ProductDetail";
 import { CartPage } from "./pages/CartPage/CartPage";
+import { ProfilePage } from "./pages/ProfilePage";
+
 
 export const App = () => {
   return createBrowserRouter([
@@ -27,6 +29,10 @@ export const App = () => {
         {
           path: "/user-cart",
           element: <CartPage />,
+        },
+        {
+          path: "/profile",
+          element: <ProfilePage />,
         },
       ],
     },

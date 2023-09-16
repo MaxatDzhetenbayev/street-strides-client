@@ -9,10 +9,11 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchAddProductForCart } from "../../../store/slices/productSlice";
+import { toast } from "react-toastify";
 
 export const ProductItem = ({
   id,
@@ -21,11 +22,25 @@ export const ProductItem = ({
   images,
   price,
 }) => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  const handleAddToCart = ({ userId, productId }) => {
+    if (!userId) {
+      toast.error("To add a product to your cart you need to log in");
+      return;
+    }
+    console.log(userId, productId);
+    dispatch(fetchAddProductForCart({userId, productId}));
+    toast.success("Product added in your cart");
+  };
 
   return (
     <Card>
-      <CardHeader title={title} />
+      <CardHeader
+        title={title.length > 22 ? title.slice(0, 22) + "..." : title}
+      />
       <CardMedia
         component="img"
         style={{ objectFit: "contain" }}
@@ -34,17 +49,16 @@ export const ProductItem = ({
       />
       <CardContent>
         <Typography mt={1}>
-          {description.length > 123
-            ? description.slice(0, 123) + "..."
+          {description.length > 100
+            ? description.slice(0, 100) + "..."
             : description}
         </Typography>
       </CardContent>
       <CardActions>
         <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
-          <IconButton>
-            <FavoriteBorderIcon />
-          </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={() => handleAddToCart({ userId: user?.id, productId: id })}
+          >
             <ShoppingCartOutlinedIcon />
           </IconButton>
           <Typography color="blue">{price}$</Typography>
