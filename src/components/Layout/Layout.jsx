@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchAuthCheck, setIsAuth } from "../../store/slices/userSlice";
+import { fetchAuthCheck } from "../../store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 
@@ -11,7 +11,6 @@ export const Layout = () => {
 
   useEffect(() => {
     dispatch(fetchAuthCheck());
-    dispatch(setIsAuth(true));
   }, []);
 
   return (

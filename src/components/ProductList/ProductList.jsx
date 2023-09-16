@@ -1,17 +1,9 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Skeleton,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, Grid, Skeleton } from "@mui/material";
 import React from "react";
 import { ProductItem } from "./ProductItem/ProductItem";
 import { useGetProductListQuery } from "../../store/api/ProductApi";
 export const ProductList = ({ brand, sort }) => {
   const { data: products, isLoading } = useGetProductListQuery({ brand, sort });
-
-  const loading = true;
 
   if (isLoading) {
     return (

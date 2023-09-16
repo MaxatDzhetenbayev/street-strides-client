@@ -79,12 +79,15 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUserRegistration.fulfilled, (state, action) => {
       state.user = { ...action.payload };
+      state.isAuth = true;
     });
     builder.addCase(fetchUserLogin.fulfilled, (state, action) => {
       state.user = { ...action.payload };
+      state.isAuth = true;
     });
     builder.addCase(fetchAuthCheck.fulfilled, (state, action) => {
       state.user = { ...action.payload };
+      state.isAuth = true;
     });
   },
 });
