@@ -9,7 +9,7 @@ export const ProductList = ({ brand, sort }) => {
     return (
       <Grid mt={5} container rowSpacing={2} columnSpacing={3}>
         {[0, 0, 0, 0, 0, 0, 0, 0].map((item, index) => (
-          <Grid item key={index} sm={12} md={6} lg={4} xl={3}>
+          <Grid item key={index} xs={12} sm={12} md={6} lg={4} xl={3}>
             <Card>
               <CardHeader
                 title={
