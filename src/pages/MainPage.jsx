@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { Welcome } from "./AuthPage/components/Welcome/Welcome";
 import { ProductList } from "../components/ProductList/ProductList";
-import Select, { components } from "react-select";
+import Select  from "react-select";
 export const MainPage = () => {
   const [brand, setBrand] = useState("all");
   const [sort, setSort] = useState("ASC");

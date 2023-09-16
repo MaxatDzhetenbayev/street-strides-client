@@ -1,10 +1,7 @@
 import {
-  Box,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
-  CardMedia,
   Grid,
   Skeleton,
 } from "@mui/material";
